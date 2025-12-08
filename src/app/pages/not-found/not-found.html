@@ -1,0 +1,78 @@
+<!-- src/app/pages/not-found/not-found.html -->
+
+<!-- Stars Background -->
+<div class="stars" id="stars"></div>
+
+<!-- Main Error Container -->
+<div class="error-container">
+  <!-- Planet Animation -->
+  <div class="planet" style="top: -100px; right: -100px;"></div>
+
+  <!-- Error Code -->
+  <div class="error-code">404</div>
+
+  <!-- Error Message -->
+  <div class="error-message">{{ 'NOT_FOUND.TITLE' | translate }}</div>
+
+  <!-- Error Description -->
+  <div class="error-description">
+    {{ 'NOT_FOUND.DESCRIPTION' | translate }}
+  </div>
+
+  <!-- Search Box -->
+  <div class="search-box">
+    <div class="input-group">
+      <!-- استخدام خاصية placeholder مع الترجمة -->
+      <input type="text" class="form-control search-input" [placeholder]="'NOT_FOUND.SEARCH_PLACEHOLDER' | translate">
+      <button class="btn search-btn" type="button" [attr.aria-label]="'COMMON.SEARCH' | translate">
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Home Button -->
+  <button class="btn btn-home" onclick="window.location.href='/'">
+    <i class="fas fa-home me-2"></i>
+    {{ 'COMMON.BACK_HOME' | translate }}
+  </button>
+
+  <!-- Helpful Links -->
+  <div class="helpful-links">
+    <!-- استخدام مفاتيح مشتركة أو جديدة -->
+    <a routerLink="/" class="link-item">
+      <i class="fas fa-home me-1"></i> {{ 'COMMON.HOME' | translate }}
+    </a>
+    <a routerLink="/products" class="link-item">
+      <i class="fas fa-shopping-bag me-1"></i> {{ 'HEADER.ALL_PRODUCTS' | translate }}
+    </a>
+    <a routerLink="/contact" class="link-item">
+      <i class="fas fa-envelope me-1"></i> {{ 'COMMON.CONTACT_US' | translate }}
+    </a>
+  </div>
+</div>
+
+<!-- Astronaut Animation (JS Code Remains Same) -->
+<div class="astronaut" style="bottom: 20px; left: 50px;">
+  <i class="fas fa-user-astronaut fa-5x"></i>
+</div>
+
+<script>
+  // Create random stars
+  const starsContainer = document.getElementById('stars');
+  for (let i = 0; i < 100; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.animationDelay = Math.random() * 3 + 's';
+    starsContainer.appendChild(star);
+  }
+
+  // Add floating animation to astronaut
+  const astronaut = document.querySelector('.astronaut');
+  let position = 0;
+  setInterval(() => {
+    position = (position + 1) % 360;
+    astronaut.style.transform = `rotate(${position}deg)`;
+  }, 50);
+</script>

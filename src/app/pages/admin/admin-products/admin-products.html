@@ -1,0 +1,264 @@
+<!-- src/app/pages/admin/admin-products/admin-products.html -->
+<div class="admin-products">
+  <div class="container-fluid">
+
+    <!-- Header Section -->
+    <div class="page-header">
+      <div class="header-content">
+        <div class="title-section">
+          <h1 class="page-title">
+            <span class="icon">📦</span>
+            {{ 'ADMIN_PRODUCTS.TITLE' | translate }}
+          </h1>
+          <p class="page-subtitle">{{ 'ADMIN_PRODUCTS.SUBTITLE' | translate }}</p>
+        </div>
+
+        <div class="actions-section">
+          <input type="text" class="form-control search-input"
+            [placeholder]="'ADMIN_PRODUCTS.SEARCH_PLACEHOLDER' | translate" [(ngModel)]="searchTerm">
+
+          <button class="btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#productModal"
+            (click)="openAddModal()">
+            <i class="bi bi-plus-circle"></i>
+            {{ 'ADMIN_PRODUCTS.ADD_BUTTON' | translate }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="stats-cards">
+        <div class="stat-card">
+          <div class="stat-icon bg-primary">
+            <i class="bi bi-box-seam"></i>
+          </div>
+          <div class="stat-info">
+            <h3>{{ products.length }}</h3>
+            <p>{{ 'ADMIN_PRODUCTS.TOTAL_PRODUCTS' | translate }}</p>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon bg-success">
+            <i class="bi bi-graph-up"></i>
+          </div>
+          <div class="stat-info">
+            <h3>{{ getActiveProducts() }}</h3>
+            <p>{{ 'ADMIN_PRODUCTS.ACTIVE_PRODUCTS' | translate }}</p>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon bg-warning">
+            <i class="bi bi-tags"></i>
+          </div>
+          <div class="stat-info">
+            <h3>{{ getCategories() }}</h3>
+            <p>{{ 'ADMIN_PRODUCTS.CATEGORIES_COUNT' | translate }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table Card -->
+    <div class="table-card">
+      <div class="table-responsive modern p-4">
+        <div *ngFor="let category of groupedProducts | keyvalue" class="category-group">
+          <h5 class="category-title">{{ category.key | titlecase }}</h5>
+          <table class="table products-table">
+            <thead>
+              <tr>
+                <th>
+                  <input type="checkbox" class="form-check-input">
+                </th>
+                <th>{{ 'ADMIN_PRODUCTS.TABLE_HEADER_PRODUCT' | translate }}</th>
+                <th>{{ 'ADMIN_PRODUCTS.TABLE_HEADER_CATEGORY' | translate }}</th>
+                <th>{{ 'ADMIN_PRODUCTS.TABLE_HEADER_PRICE' | translate }}</th>
+                <th>{{ 'ADMIN_PRODUCTS.TABLE_HEADER_STOCK' | translate }}</th>
+                <th>{{ 'ADMIN_PRODUCTS.TABLE_HEADER_CREATED' | translate }}</th>
+                <th>{{ 'ADMIN_PRODUCTS.TABLE_HEADER_STATUS' | translate }}</th>
+                <th>{{ 'ADMIN_PRODUCTS.TABLE_HEADER_ACTIONS' | translate }}</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let p of filteredProducts" class="product-row">
+                <td>
+                  <input type="checkbox" class="form-check-input">
+                </td>
+
+                <td>
+                  <div class="product-info">
+                    <div class="product-image">
+                      <img [src]="p.image" [alt]="p.title">
+                    </div>
+                    <div class="product-details">
+                      <h6 class="product-title">{{ p.title }}</h6>
+                      <p class="product-desc">{{ p.description | slice:0:50 }}...</p>
+                    </div>
+                  </div>
+                </td>
+
+                <td>
+                  <span class="badge-category">{{ p.category }}</span>
+                </td>
+
+                <td>
+                  <span class="price">${{ p.price }}</span>
+                </td>
+
+                <td>
+                  <span class="stock-badge d-inline-block stock-in">{{ 'ADMIN_PRODUCTS.IN_STOCK' | translate }}</span>
+                </td>
+
+                <td>
+                  <span class="date">{{ p.createdAt | date:'MMM d, y' }}</span>
+                </td>
+
+                <td>
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" checked>
+                  </div>
+                </td>
+
+                <td>
+                  <div class="action-buttons">
+                    <button class="btn-action btn-view" (click)="viewProductsByCategory(p.category)"
+                      [title]="'COMMON.VIEW' | translate">
+                      <fa-icon [icon]="['fas', 'eye']"></fa-icon>
+                    </button>
+
+                    <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#productModal"
+                      (click)="openEditModal(p)" [title]="'COMMON.EDIT' | translate">
+                      <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+                    </button>
+
+                    <button class="btn-action btn-delete" (click)="deleteProduct(p.id)"
+                      [title]="'COMMON.DELETE' | translate">
+                      <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination (commented out in source HTML, so skipped for translation) -->
+
+      </div>
+
+    </div>
+
+    <!-- Enhanced Modal -->
+    <div class="modal fade" id="productModal" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content modern-modal">
+
+          <div class="modal-header">
+            <div>
+              <h5 class="modal-title">
+                <i class="bi" [ngClass]="isEdit ? 'bi-pencil-square' : 'bi-plus-circle'"></i>
+                <!-- استخدام ternary operator للترجمة -->
+                {{ isEdit ? ('ADMIN_PRODUCTS.EDIT_PRODUCT' | translate) : ('ADMIN_PRODUCTS.ADD_BUTTON' | translate) }}
+              </h5>
+              <p class="modal-subtitle">
+                {{ isEdit ? ('ADMIN_PRODUCTS.UPDATE_INFO_SUBTITLE' | translate) :
+                ('ADMIN_PRODUCTS.FILL_DETAILS_SUBTITLE' | translate) }}
+              </p>
+            </div>
+            <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal"
+              [attr.aria-label]="'COMMON.CLOSE' | translate"></button>
+          </div>
+
+          <div class="modal-body">
+            <form>
+              <div class="row g-4">
+
+                <!-- Image Preview -->
+                <div class="col-12">
+                  <div class="image-preview-section">
+                    <div class="preview-box">
+                      <img [src]="formData.image || 'https://placehold.co/600x400?text=No+Image'"
+                        [alt]="'COMMON.PREVIEW_ALT' | translate">
+                    </div>
+                    <div class="upload-info">
+                      <i class="bi bi-cloud-upload"></i>
+                      <p>{{ 'ADMIN_PRODUCTS.UPLOAD_IMAGE_INFO' | translate }}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Title -->
+                <div class="col-md-12">
+                  <label class="form-label">
+                    <i class="bi bi-tag"></i>
+                    {{ 'PRODUCTS.TITLE' | translate }}
+                  </label>
+                  <input type="text" class="form-control modern-input" [(ngModel)]="formData.title" name="title"
+                    [placeholder]="'ADMIN_PRODUCTS.PLACEHOLDER_ENTER_TITLE' | translate">
+                </div>
+
+                <!-- Description -->
+                <div class="col-md-12">
+                  <label class="form-label">
+                    <i class="bi bi-card-text"></i>
+                    {{ 'ADMIN_PRODUCTS.DESCRIPTION' | translate }}
+                  </label>
+                  <textarea class="form-control modern-input" rows="3"
+                    [(ngModel)]="formData.description" name="description"
+                    [placeholder]="'ADMIN_PRODUCTS.PLACEHOLDER_ENTER_DESCRIPTION' | translate"></textarea>
+                </div>
+
+                <!-- Image URL -->
+                <div class="col-md-12">
+                  <label class="form-label">
+                    <i class="bi bi-image"></i>
+                    {{ 'ADMIN_PRODUCTS.IMAGE' | translate }}
+                  </label>
+                  <input type="text" class="form-control modern-input" [(ngModel)]="formData.image" name="image"
+                    [placeholder]="'ADMIN_PRODUCTS.PLACEHOLDER_ENTER_IMAGE_URL' | translate">
+                </div>
+
+                <!-- Price & Category -->
+                <div class="col-md-6">
+                  <label class="form-label">
+                    <i class="bi bi-currency-dollar"></i>
+                    {{ 'PRODUCTS.PRICE' | translate }}
+                  </label>
+                  <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input type="number" class="form-control modern-input" [(ngModel)]="formData.price" name="price"
+                      [placeholder]="'ADMIN_PRODUCTS.PLACEHOLDER_PRICE' | translate">
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">
+                    <i class="bi bi-grid"></i>
+                    {{ 'PRODUCTS.CATEGORY' | translate }}
+                  </label>
+                  <select class="form-select modern-input" [(ngModel)]="formData.category" name="category">
+                    <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+
+                  </select>
+                </div>
+
+
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+              [attr.aria-label]="'COMMON.CLOSE' | translate">
+              {{ 'COMMON.CLOSE' | translate }}
+            </button>
+            <button type="button" class="btn btn-primary" (click)="save()" data-bs-dismiss="modal">
+              {{ isEdit ? ('COMMON.SAVE_CHANGES' | translate) : ('ADMIN_PRODUCTS.SAVE_BUTTON' | translate) }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

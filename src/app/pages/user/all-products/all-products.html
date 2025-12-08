@@ -1,0 +1,43 @@
+<!-- src/app/pages/user/all-products/all-products.html -->
+<div class="container mt-4">
+
+  <!-- Spinner -->
+  <div *ngIf="loading"><app-spinner></app-spinner></div>
+
+  <!-- Categories -->
+  <app-categories (categoryChange)="filterByCategory($event)"></app-categories>
+
+  <div class="products">
+    <!-- Products List -->
+    <div class="row" *ngIf="!loading">
+      <div class="col-md-3 mb-4" *ngFor="let item of paginatedProducts">
+        <app-product-card [data]="item" (item)="addToCart(item)" class="cursor-pointer"></app-product-card>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGINATION -->
+  <div class="pagination">
+
+    <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">
+      {{ 'COMMON.PREV' | translate }}
+    </button>
+
+    <button *ngFor="let page of [].constructor(totalPages); let i = index" [class.active]="currentPage === i + 1"
+      (click)="changePage(i + 1)">
+      {{ i + 1 }}
+    </button>
+
+    <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">
+      {{ 'COMMON.NEXT' | translate }}
+    </button>
+
+  </div>
+
+  <!-- No Products Found -->
+  <div *ngIf="!loading && products.length === 0" class="text-center p-5">
+    <p class="lead">{{ 'PRODUCTS.NO_PRODUCTS' | translate }}</p>
+    <a routerLink="/" class="btn btn-primary mt-3">{{ 'COMMON.BACK_HOME' | translate }}</a>
+  </div>
+
+</div>

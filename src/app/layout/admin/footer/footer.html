@@ -1,0 +1,87 @@
+
+<footer>
+    <div class="footer-content">
+        <div class="row">
+            <!-- About Section -->
+            <div class="col-lg-4 col-md-6 footer-section">
+                <h3>About Us</h3>
+                <p>We are dedicated to providing the best shopping experience with quality products and excellent customer service.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-lg-2 col-md-6 footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Home <i class="fas fa-chevron-left"></i></a></li>
+                    <li><a href="#">Shop <i class="fas fa-chevron-left"></i></a></li>
+                    <li><a href="#">About Us <i class="fas fa-chevron-left"></i></a></li>
+                    <li><a href="#">Contact <i class="fas fa-chevron-left"></i></a></li>
+                    <li><a href="#">Blog <i class="fas fa-chevron-left"></i></a></li>
+                </ul>
+            </div>
+
+            <!-- Customer Service -->
+            <div class="col-lg-3 col-md-6 footer-section">
+                <h3>Customer Service</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Track Order <i class="fas fa-chevron-left"></i></a></li>
+                    <li><a href="#">Returns <i class="fas fa-chevron-left"></i></a></li>
+                    <li><a href="#">Shipping Info <i class="fas fa-chevron-left"></i></a></li>
+                    <li><a href="#">FAQs <i class="fas fa-chevron-left"></i></a></li>
+                    <li><a href="#">Terms & Conditions <i class="fas fa-chevron-left"></i></a></li>
+                </ul>
+            </div>
+
+            <!-- Newsletter -->
+            <div class="col-lg-3 col-md-6 footer-section">
+                <h3>Newsletter</h3>
+                <p>Subscribe to get special offers and updates</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <p>&copy; 2023 Your Store. All rights reserved.</p>
+            <div class="payment-methods">
+                <i class="fab fa-cc-visa"></i>
+                <i class="fab fa-cc-mastercard"></i>
+                <i class="fab fa-cc-paypal"></i>
+                <i class="fab fa-cc-amex"></i>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Back to Top Button -->
+<div class="back-to-top" id="backToTop">
+    <i class="fas fa-arrow-up"></i>
+</div>
+
+<script>
+    // Back to top button functionality
+    window.addEventListener('scroll', function() {
+        const backToTop = document.getElementById('backToTop');
+        if (window.pageYOffset > 300) {
+            backToTop.classList.add('show');
+        } else {
+            backToTop.classList.remove('show');
+        }
+    });
+
+    document.getElementById('backToTop').addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+</script>

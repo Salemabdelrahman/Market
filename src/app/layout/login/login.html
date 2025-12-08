@@ -1,0 +1,70 @@
+<div class="login-container">
+  <h2>{{ 'AUTH.WELCOME_TITLE' | translate }}</h2>
+  <p class="subtitle">{{ 'AUTH.SUBTITLE' | translate }}</p>
+
+  <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+
+    <div class="form-group">
+      <label for="username">{{ 'AUTH.USERNAME_LABEL' | translate }}</label>
+      <div class="input-wrapper">
+        <input type="text" id="username" name="username" [ngModel]="username()" (ngModelChange)="username.set($event)"
+          required class="form-control" [placeholder]="'AUTH.USERNAME_PLACEHOLDER' | translate"
+          [disabled]="isLoading()" />
+        <span class="input-icon">👤</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">{{ 'AUTH.PASSWORD_LABEL' | translate }}</label>
+      <div class="input-wrapper">
+        <input type="password" id="password" name="password" [ngModel]="password()"
+          (ngModelChange)="password.set($event)" required class="form-control"
+          [placeholder]="'AUTH.PASSWORD_PLACEHOLDER' | translate" [disabled]="isLoading()" />
+        <span class="input-icon">🔒</span>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid || isLoading()">
+      @if (isLoading()) {
+      <span class="spinner-border"></span>
+      {{ 'COMMON.LOADING' | translate }}
+      } @else {
+      {{ 'AUTH.LOGIN_BUTTON' | translate }}
+      }
+    </button>
+
+    @if (error()) {
+    <div class="alert alert-danger" role="alert">
+      <!-- رسالة الخطأ ديناميكية (error()) ويجب ترجمتها في TypeScript أو تمرير مفتاح ترجمة -->
+      {{ error() }}
+    </div>
+    }
+
+    <div class="forgot-password">
+      <a href="#" (click)="$event.preventDefault()">{{ 'AUTH.FORGOT_PASSWORD' | translate }}</a>
+    </div>
+
+    <!-- <div class="divider">{{ 'AUTH.OR_DIVIDER' | translate }}</div> -->
+
+    <!-- <div class="social-login">
+      <button type="button" class="social-btn" (click)="$event.preventDefault()">
+        <span style="font-size: 18px;">G</span> {{ 'AUTH.LOGIN_GOOGLE' | translate }}
+      </button>
+      <button type="button" class="social-btn" (click)="$event.preventDefault()">
+        <span style="font-size: 18px;">f</span> {{ 'AUTH.LOGIN_FACEBOOK' | translate }}
+      </button>
+    </div> -->
+
+    <!-- Display this email & password for user => Test purposes -->
+    <div class="email-password">
+      <h4>Email & Password (User) => Test</h4>
+      <p>Username: user </p>
+      <p>Password: <b>password123</b></p>
+
+      <h4>Email & Password (Admin) => Test</h4>
+      <p>Username: admin</p>
+      <p>Password: <b>admin123</b></p>
+
+    </div>
+  </form>
+</div>

@@ -1,0 +1,101 @@
+<div class="admin-cart-page">
+
+  <!-- Filter Section -->
+  <div class="filter-box mb-3">
+    <div class="row g-3">
+
+      <div class="col-md-4">
+        <label>{{ 'ADMIN_CART.START_DATE' | translate }}:</label>
+        <input type="date" class="form-control" [(ngModel)]="startDate">
+      </div>
+
+      <div class="col-md-4">
+        <label>{{ 'ADMIN_CART.END_DATE' | translate }}:</label>
+        <input type="date" class="form-control" [(ngModel)]="endDate">
+      </div>
+
+      <div class="col-md-4 d-flex align-items-end">
+        <button class="btn btn-primary w-100" (click)="applyFilter()">{{ 'COMMON.APPLY' | translate }}</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Months Table -->
+  <table class="table table-bordered text-center">
+    <thead>
+      <tr>
+        <th>{{ 'ADMIN_CART.TABLE_HEADER_MONTH' | translate }}</th>
+        <th>{{ 'ADMIN_CART.TABLE_HEADER_QUANTITY' | translate }}</th>
+        <th>{{ 'ADMIN_CART.TABLE_HEADER_ACTIONS' | translate }}</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let month of grouped">
+        <td>{{ month.display }}</td>
+        <td>{{ month.quantity }}</td>
+
+        <td>
+          <button class="btn btn-info me-2" data-bs-toggle="modal" data-bs-target="#detailsModal"
+            (click)="openModal(month.items)">
+            {{ 'COMMON.VIEW' | translate }}
+          </button>
+
+          <button class="btn btn-danger" (click)="deleteMonth(month.monthKey)">
+            {{ 'COMMON.DELETE' | translate }}
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Modal -->
+  <div class="modal fade" id="detailsModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title">{{ 'ADMIN_CART.MODAL_TITLE' | translate }}</h5>
+          <button class="btn-close ms-auto" data-bs-dismiss="modal"
+            [attr.aria-label]="'COMMON.CLOSE' | translate"></button>
+        </div>
+
+        <div class="modal-body">
+
+          <table class="table table-striped text-center">
+            <thead>
+              <tr>
+                <th>{{ 'ADMIN_CART.MODAL_TABLE_IMAGE' | translate }}</th>
+                <th>{{ 'ADMIN_CART.MODAL_TABLE_TITLE' | translate }}</th>
+                <th>{{ 'ADMIN_CART.MODAL_TABLE_PRICE' | translate }}</th>
+                <th>{{ 'ADMIN_CART.MODAL_TABLE_QTY' | translate }}</th>
+                <th>{{ 'ADMIN_CART.MODAL_TABLE_TOTAL' | translate }}</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let p of selectedMonthItems">
+                <td><img [src]="p.image" width="60" [alt]="'COMMON.PRODUCT_IMAGE_ALT' | translate"></td>
+                <td>{{ p.title }}</td>
+                <td>{{ p.price }}</td>
+                <td>{{ p.quantity }}</td>
+                <td>{{ p.price! * p.quantity! }}</td>
+              </tr>
+            </tbody>
+
+          </table>
+
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">{{ 'COMMON.CLOSE' | translate }}</button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>

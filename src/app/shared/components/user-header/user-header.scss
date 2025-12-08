@@ -1,0 +1,79 @@
+.navbar {
+  background: var(--surface);
+  box-shadow: var(--card-shadow);
+  transition: background var(--transition-fast), color var(--transition-fast);
+
+}
+
+.nav-fixed-top {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1030;
+  /* Ensure it stays above other content */
+}
+
+.nav-link {
+  transition: all 0.3s ease;
+  position: relative;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  &.active {
+    font-weight: 600;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30px;
+      height: 3px;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      border-radius: 2px;
+    }
+  }
+}
+
+.badge {
+  font-size: 10px;
+  padding: 4px 6px;
+}
+
+.dropdown-menu {
+  background-color: var(--surface);
+  border-radius: 8px;
+  box-shadow: var(--card-shadow);
+}
+
+.dropdown-item {
+  color: var(--text);
+  transition: background 0.3s ease, color 0.3s ease;
+
+  &:hover {
+    background-color: var(--primary);
+    color: #fff;
+  }
+}
+
+.user-header {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--card-shadow);
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.user-header .nav-link {
+  color: var(--text);
+}
+
+.user-header .nav-link:hover {
+  color: var(--primary);
+}

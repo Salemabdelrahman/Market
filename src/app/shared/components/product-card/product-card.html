@@ -1,0 +1,22 @@
+<!-- Product Card -->
+<div class="card h-100 shadow-sm">
+  <div (click)="openDetails(data.id)" class="">
+    <img [src]="data.image" class="card-img-top" [alt]="data.title" style="height: 250px; object-fit: contain;" />
+    <div class="card-body">
+      <h3 class="card-title text-truncate">{{ data.title }}</h3>
+      <p class="card-text text-truncate">{{ data.description }}</p>
+      <p class="text-muted">{{ data.price | currency }}</p>
+    </div>
+  </div>
+
+  <div class="card-footer text-center">
+    <!-- increment and decrement buttons removed-->
+    <div class="mb-2 d-flex justify-content-center" role="group" aria-label="Quantity selector">
+      <button type="button" class="btn btn-outline-secondary me-2" (click)="decrement()">-</button>
+      <button type="button" class="btn btn-outline-secondary w-100">{{ quantity }}</button>
+      <button type="button" class="btn btn-outline-secondary ms-2" (click)="increment()">+</button>
+    </div>
+
+    <button class="btn btn-success btn-sm w-100" (click)="addToCart()">{{ 'PRODUCTS.ADD_TO_CART' | translate }}</button>
+  </div>
+</div>

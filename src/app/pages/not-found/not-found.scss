@@ -1,0 +1,151 @@
+
+.error-container {
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+}
+
+.error-code {
+    font-size: 10rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.2);
+    position: relative;
+    animation: float 3s ease-in-out infinite;
+}
+
+.error-message {
+    font-size: 2rem;
+    color: white;
+    margin: 2rem 0;
+    animation: fadeInUp 1s ease;
+}
+
+.error-description {
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 2rem;
+    animation: fadeInUp 1s ease 0.2s backwards;
+}
+
+.btn-home {
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    background: white;
+    color: #764ba2;
+    border: none;
+    transition: all 0.3s ease;
+    animation: fadeInUp 1s ease 0.4s backwards;
+}
+
+.btn-home:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    background: #f0f0f0;
+}
+
+.astronaut {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    animation: float 4s ease-in-out infinite;
+}
+
+.stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 3s infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+}
+
+.planet {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 0 50px rgba(0,0,0,0.3);
+    animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.search-box {
+    max-width: 500px;
+    margin: 2rem auto;
+    animation: fadeInUp 1s ease 0.6s backwards;
+}
+
+.search-input {
+    border-radius: 50px;
+    padding: 12px 20px;
+    border: none;
+    background: rgba(255,255,255,0.9);
+}
+
+.search-btn {
+    border-radius: 50px;
+    padding: 12px 30px;
+    background: white;
+    border: none;
+    color: #764ba2;
+    transition: all 0.3s ease;
+}
+
+.search-btn:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+}
+
+.helpful-links {
+    margin-top: 3rem;
+    animation: fadeInUp 1s ease 0.8s backwards;
+}
+
+.link-item {
+    display: inline-block;
+    margin: 0 10px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.link-item:hover {
+    color: #f0f0f0;
+    transform: translateY(-2px);
+}

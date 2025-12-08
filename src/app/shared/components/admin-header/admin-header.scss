@@ -1,0 +1,44 @@
+.badge {
+  font-size: 0.75rem;
+  padding: 0.35em 0.55em;
+}
+
+.nav-fixed-top {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1030;
+  /* Ensure it stays above other content */
+}
+
+.nav-link {
+  transition: all 0.3s ease;
+  position: relative;
+
+  &:hover {
+    color: #fff !important;
+    transform: translateY(-2px);
+  }
+
+  &.active {
+    color: #fff !important;
+    font-weight: 600;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30px;
+      height: 3px;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      border-radius: 2px;
+    }
+  }
+}
+
+.badge {
+  font-size: 10px;
+  padding: 4px 6px;
+}

@@ -1,1 +1,109 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+
+// استخدم @use بدلاً من @import
+@use "bootstrap" as *;
+
+
+/* styles.scss */
+
+/* Transitions for smooth change */
+:root {
+  --transition-fast: 200ms;
+}
+
+/* Light theme variables (default) */
+:root {
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --text: #1f2937;
+  /* slate-800 */
+  --muted: #6b7280;
+  /* gray-500 */
+  --primary: #4f46e5;
+  /* indigo-600 */
+  --primary-variant: #6366f1;
+  --success: #10b981;
+  --danger: #ef4444;
+  --card-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
+}
+
+/* Dark theme variables (activated by data-theme="dark") */
+:root[data-theme='dark'] {
+  --bg: #0b1220;
+  /* dark background */
+  --surface: #0f1724;
+  /* slightly lighter */
+  --text: #e6eef8;
+  /* light text */
+  --muted: #94a3b8;
+  /* muted */
+  --primary: #7c3aed;
+  /* brighter primary for dark */
+  --primary-variant: #8b5cf6;
+  --success: #34d399;
+  --danger: #fb7185;
+  --card-shadow: 0 6px 20px rgba(2, 6, 23, 0.6);
+}
+
+// _____________________________
+
+// Translations
+html[dir='rtl'] {
+  direction: rtl;
+  text-align: right;
+
+  body {
+    font-family: 'Cairo', sans-serif;
+  }
+
+  .ms-auto {
+    margin-left: 0 !important;
+    margin-right: auto !important;
+  }
+}
+
+html[dir='ltr'] {
+  direction: ltr;
+
+  body {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .ms-auto {
+    margin-right: 0 !important;
+    margin-left: auto !important;
+  }
+}
+
+// _____________________________
+
+/* Apply variables globally */
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+  transition: background var(--transition-fast) ease, color var(--transition-fast) ease;
+}
+
+/* Example components use the variables */
+.navbar {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--card-shadow);
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.card {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--card-shadow);
+}
+
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-variant));
+  color: #fff;
+  border: none;
+}

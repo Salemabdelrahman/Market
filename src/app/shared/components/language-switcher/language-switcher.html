@@ -1,0 +1,35 @@
+<!-- language-switcher.component.html -->
+<div class="language-switcher">
+
+  <!-- طريقة 1: باستخدام Observable مباشرةً -->
+  <!-- <button (click)="langService.setLanguage('en')" [class.active]="(currentLang$ | async) === 'en'" class="lang-btn">
+    🇺🇸 EN
+  </button>
+
+  <button (click)="langService.setLanguage('ar')" [class.active]="(currentLang$ | async) === 'ar'" class="lang-btn">
+    🇸🇦 AR
+  </button>
+
+</div> -->
+
+  <!-- أو طريقة 2: باستخدام المتغير -->
+  <!-- <div class="language-switcher-alt">
+
+    <button (click)="langService.setLanguage('en')" [class.active]="currentLang === 'en'" class="lang-btn">
+      🇺🇸 English
+    </button>
+
+    <button (click)="langService.setLanguage('ar')" [class.active]="currentLang === 'ar'" class="lang-btn">
+      🇸🇦 العربية
+    </button>
+
+  </div> -->
+
+  <!-- أو طريقة 3: Toggle Button -->
+  <button class="toggle-lang-btn" (click)="toggleLanguage()">
+    @if (currentLang === 'en') {
+    🇸🇦 العربية
+    } @else {
+    🇺🇸 English
+    }
+  </button>
