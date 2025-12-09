@@ -1,44 +1,32 @@
 <!-- src/app/pages/not-found/not-found.html -->
 
-<!-- Stars Background -->
-<div class="stars" id="stars"></div>
+<!-- الخلفية النجمية (ربطها بـ ViewChild في TS) -->
+<div class="stars" #starsContainer></div>
 
 <!-- Main Error Container -->
 <div class="error-container">
-  <!-- Planet Animation -->
-  <div class="planet" style="top: -100px; right: -100px;"></div>
+
+  <div class="planet"></div>
 
   <!-- Error Code -->
   <div class="error-code">404</div>
 
   <!-- Error Message -->
-  <div class="error-message">{{ 'NOT_FOUND.TITLE' | translate }}</div>
+  <h1 class="error-message">{{ 'NOT_FOUND.TITLE' | translate }}</h1>
 
   <!-- Error Description -->
-  <div class="error-description">
+  <p class="error-description">
     {{ 'NOT_FOUND.DESCRIPTION' | translate }}
-  </div>
+  </p>
 
-  <!-- Search Box -->
-  <div class="search-box">
-    <div class="input-group">
-      <!-- استخدام خاصية placeholder مع الترجمة -->
-      <input type="text" class="form-control search-input" [placeholder]="'NOT_FOUND.SEARCH_PLACEHOLDER' | translate">
-      <button class="btn search-btn" type="button" [attr.aria-label]="'COMMON.SEARCH' | translate">
-        <i class="fas fa-search"></i>
-      </button>
-    </div>
-  </div>
-
-  <!-- Home Button -->
-  <button class="btn btn-home" onclick="window.location.href='/'">
+  <!-- Home Button - استخدام routerLink أفضل في Angular -->
+  <button class="btn btn-home" routerLink="/">
     <i class="fas fa-home me-2"></i>
     {{ 'COMMON.BACK_HOME' | translate }}
   </button>
 
   <!-- Helpful Links -->
   <div class="helpful-links">
-    <!-- استخدام مفاتيح مشتركة أو جديدة -->
     <a routerLink="/" class="link-item">
       <i class="fas fa-home me-1"></i> {{ 'COMMON.HOME' | translate }}
     </a>
@@ -51,28 +39,7 @@
   </div>
 </div>
 
-<!-- Astronaut Animation (JS Code Remains Same) -->
-<div class="astronaut" style="bottom: 20px; left: 50px;">
+<!-- Astronaut Animation (ربطه بـ ViewChild في TS) -->
+<div class="astronaut" #astronautRef>
   <i class="fas fa-user-astronaut fa-5x"></i>
 </div>
-
-<script>
-  // Create random stars
-  const starsContainer = document.getElementById('stars');
-  for (let i = 0; i < 100; i++) {
-    const star = document.createElement('div');
-    star.className = 'star';
-    star.style.left = Math.random() * 100 + '%';
-    star.style.top = Math.random() * 100 + '%';
-    star.style.animationDelay = Math.random() * 3 + 's';
-    starsContainer.appendChild(star);
-  }
-
-  // Add floating animation to astronaut
-  const astronaut = document.querySelector('.astronaut');
-  let position = 0;
-  setInterval(() => {
-    position = (position + 1) % 360;
-    astronaut.style.transform = `rotate(${position}deg)`;
-  }, 50);
-</script>

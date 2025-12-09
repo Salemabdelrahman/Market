@@ -99,8 +99,8 @@ export class AdminProducts implements OnInit {
     return this.products.length; // أو حسب منطقك
   }
 
-  getCategories()  {
-     this.adminService.getAllCategories().subscribe(data => {
+  getCategories() {
+    this.adminService.getAllCategories().subscribe(data => {
       this.categories = data;
     });
   }

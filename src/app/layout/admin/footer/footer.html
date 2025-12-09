@@ -67,21 +67,4 @@
     <i class="fas fa-arrow-up"></i>
 </div>
 
-<script>
-    // Back to top button functionality
-    window.addEventListener('scroll', function() {
-        const backToTop = document.getElementById('backToTop');
-        if (window.pageYOffset > 300) {
-            backToTop.classList.add('show');
-        } else {
-            backToTop.classList.remove('show');
-        }
-    });
-
-    document.getElementById('backToTop').addEventListener('click', function() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-</script>
+<!-- Inline scripts removed; behavior handled in component TypeScript -->

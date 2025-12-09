@@ -62,7 +62,7 @@
     <!-- Table Card -->
     <div class="table-card">
       <div class="table-responsive modern p-4">
-        <div *ngFor="let category of groupedProducts | keyvalue" class="category-group">
+        <div *ngFor="let category of products | keyvalue" class="category-group">
           <h5 class="category-title">{{ category.key | titlecase }}</h5>
           <table class="table products-table">
             <thead>
@@ -204,8 +204,8 @@
                     <i class="bi bi-card-text"></i>
                     {{ 'ADMIN_PRODUCTS.DESCRIPTION' | translate }}
                   </label>
-                  <textarea class="form-control modern-input" rows="3"
-                    [(ngModel)]="formData.description" name="description"
+                  <textarea class="form-control modern-input" rows="3" [(ngModel)]="formData.description"
+                    name="description"
                     [placeholder]="'ADMIN_PRODUCTS.PLACEHOLDER_ENTER_DESCRIPTION' | translate"></textarea>
                 </div>
 

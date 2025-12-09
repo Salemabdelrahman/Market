@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-footer',
@@ -9,5 +9,15 @@ import { Component } from '@angular/core';
 export class FooterAdmin {
 
   currentYear: number = new Date().getFullYear();
+  showBackToTop = false;
+
+  @HostListener('window:scroll')
+  onWindowScroll() {
+    this.showBackToTop = window.pageYOffset > 300;
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
 }
