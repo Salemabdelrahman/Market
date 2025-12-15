@@ -1,59 +1,57 @@
-# Market
+# Market — Angular E‑Commerce SPA
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.2.2.
+A modern, responsive Angular single‑page e‑commerce application featuring:
+- Public product catalog via FakeStoreAPI
+- Role‑based views (Admin / User)
+- Admin product CRUD persisted in LocalStorage (with createdAt)
+- Shopping cart stored in LocalStorage (add/update/remove/total)
+- Client‑side authentication (admin/user) + route guards
+- i18n with ngx‑translate, Bootstrap UI, FontAwesome icons
+- Deployed on GitHub Pages (static hosting)
 
-## Development server
+Live Demo: https://salemabdelrahman.github.io/Market/  
+Repository: https://github.com/Salemabdelrahman/Market
 
-To start a local development server, run:
+## Features
 
-```bash
-ng serve
-```
+- Public Catalog
+  - List products, view details, filter by category (FakeStoreAPI)
+- Authentication
+  - Client‑side login with two roles: admin/user (stored in LocalStorage)
+  - Guards to protect `/admin/*` routes
+- Admin
+  - Create/Update/Delete products stored in LocalStorage (`admin_products`)
+  - Auto‑generated `id` and `createdAt`
+- Cart
+  - LocalStorage‑based cart: add/remove/update/clear, compute totals
+- i18n
+  - ngx‑translate with JSON dictionaries in `assets/i18n`
+- UI/UX
+  - Bootstrap styling, FontAwesome icons
+  - Not Found page with animated stars and astronaut (moved to TypeScript lifecycle)
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Tech Stack
 
-## Code scaffolding
+- Angular, TypeScript, RxJS
+- Angular Router, Guards
+- ngx‑translate
+- Bootstrap, SCSS, FontAwesome
+- FakeStoreAPI (public data source)
+- LocalStorage (Admin products + Cart + Auth session)
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Architecture Overview
 
-```bash
-ng generate component component-name
-```
+- Services
+  - `ProductService`: reads FakeStoreAPI; merges Admin products from LocalStorage for user views
+  - [AdminProductsService](cci:2://file:///d:/My_Projects/market/src/app/core/services/admin-product-service.ts:5:0-75:1): CRUD to LocalStorage (`admin_products`)
+  - `AuthService`: client‑side users/roles (admin/user), state in LocalStorage
+  - `CartService`: LocalStorage cart with reactive stream
+- Guards
+  - [AuthGuard](cci:2://file:///d:/My_Projects/market/src/app/core/guards/auth.guard.ts:4:0-24:1): redirects unauthenticated users to `/login`, and enforces `role: 'admin'` for admin routes
+- Pages
+  - User: All Products, Product Details, Cart
+  - Admin: Products (CRUD), Cart (if present)
+  - Login, Not Found
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Project Structure (excerpt)
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
