@@ -1,7 +1,13 @@
 <button class="theme-toggle btn" aria-label="{{ 'THEME.TOGGLE_ARIA' | translate }}" (click)="toggle()">
-  <ng-container [ngSwitch]="current">
-    <span *ngSwitchCase="'dark'">🌙 {{ 'THEME.DARK' | translate }}</span>
-    <span *ngSwitchCase="'light'">☀️ {{ 'THEME.LIGHT' | translate }}</span>
-    <span *ngSwitchCase="'system'">🖥️ {{ 'THEME.SYSTEM' | translate }}</span>
-  </ng-container>
+  @switch (current) {
+    @case ('dark') {
+      <span>🌙 {{ 'THEME.DARK' | translate }}</span>
+    }
+    @case ('light') {
+      <span>☀️ {{ 'THEME.LIGHT' | translate }}</span>
+    }
+    @case ('system') {
+      <span>🖥️ {{ 'THEME.SYSTEM' | translate }}</span>
+    }
+  }
 </button>

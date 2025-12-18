@@ -2,49 +2,47 @@
 <div class="container mt-4">
   <h2 class="mb-3">🛒 {{ 'CART.TITLE' | translate }}</h2>
 
-  <div *ngIf="cartItems.length; else emptyCart">
-    <div *ngFor="let item of cartItems" class="card mb-3 p-3">
-      <div class="row align-items-center">
-        <div class="col-auto">
-          <img [src]="item.image" alt="{{item.title}}" width="80" class="rounded">
-        </div>
-
-        <div class="col">
-          <h5 class="mb-1">{{ item.title }}</h5>
-          <p class="mb-0 text-muted">{{ item.price | currency }}</p>
-        </div>
-
-        <div class="col-auto d-flex align-items-center">
-          <div class="btn-group me-3" role="group" aria-label="Quantity selector">
-            <button type="button" class="btn btn-outline-secondary" (click)="decrement(item)">-</button>
-            <button type="button" class="btn btn-outline-secondary disabled">{{ item.quantity }}</button>
-            <button type="button" class="btn btn-outline-secondary" (click)="increment(item)">+</button>
+  @if (cartItems.length) {
+    <div>
+      @for (item of cartItems; track item) {
+        <div class="card mb-3 p-3">
+          <div class="row align-items-center">
+            <div class="col-auto">
+              <img [src]="item.image" alt="{{item.title}}" width="80" class="rounded">
+            </div>
+            <div class="col">
+              <h5 class="mb-1">{{ item.title }}</h5>
+              <p class="mb-0 text-muted">{{ item.price | currency }}</p>
+            </div>
+            <div class="col-auto d-flex align-items-center">
+              <div class="btn-group me-3" role="group" aria-label="Quantity selector">
+                <button type="button" class="btn btn-outline-secondary" (click)="decrement(item)">-</button>
+                <button type="button" class="btn btn-outline-secondary disabled">{{ item.quantity }}</button>
+                <button type="button" class="btn btn-outline-secondary" (click)="increment(item)">+</button>
+              </div>
+              <div class="text-end me-3">
+                <div>{{ (item.price * item.quantity) | currency }}</div>
+                <small class="text-muted">{{ 'CART.SUBTOTAL' | translate }}</small>
+              </div>
+              <div class="col-auto">
+                <button class="btn btn-sm btn-outline-danger" (click)="removeItem(item.id)">{{ 'COMMON.REMOVE' | translate
+                }}</button>
+              </div>
+            </div>
           </div>
-
-          <div class="text-end me-3">
-            <div>{{ (item.price * item.quantity) | currency }}</div>
-            <small class="text-muted">{{ 'CART.SUBTOTAL' | translate }}</small>
-          </div>
-
-          <div class="col-auto">
-            <button class="btn btn-sm btn-outline-danger" (click)="removeItem(item.id)">{{ 'COMMON.REMOVE' | translate
-              }}</button>
-          </div>
         </div>
+      }
+      <div class="text-end mt-4">
+        <h4>{{ 'CART.TOTAL' | translate }}: {{ totalPrice | currency }}</h4>
+        <button class="btn btn-danger mt-2" (click)="clearCart()">{{ 'CART.CLEAR_CART' | translate }}</button>
+        <button class="btn btn-primary mt-2 ms-2">{{ 'CART.CHECKOUT' | translate }}</button>
       </div>
     </div>
-
-    <div class="text-end mt-4">
-      <h4>{{ 'CART.TOTAL' | translate }}: {{ totalPrice | currency }}</h4>
-      <button class="btn btn-danger mt-2" (click)="clearCart()">{{ 'CART.CLEAR_CART' | translate }}</button>
-      <button class="btn btn-primary mt-2 ms-2">{{ 'CART.CHECKOUT' | translate }}</button>
-    </div>
-  </div>
-
-  <ng-template #emptyCart>
+  } @else {
     <div class="text-center p-5">
       <p class="lead">🛍️ {{ 'CART.EMPTY_MESSAGE' | translate }}</p>
       <a routerLink="/products" class="btn btn-primary mt-3">{{ 'CART.BACK_TO_PRODUCTS' | translate }}</a>
     </div>
-  </ng-template>
+  }
+
 </div>

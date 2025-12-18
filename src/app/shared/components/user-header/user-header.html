@@ -17,17 +17,21 @@
         <li class="nav-item me-5 ">
           <a routerLink="/cart" class="nav-link position-relative">
             🛒
-            <span *ngIf="cartItemCount > 0"
-              class="badge bg-danger rounded-circle position-absolute top-0 start-100 translate-middle">
-              {{ cartItemCount }}
-            </span>
+            @if (cartItemCount > 0) {
+              <span
+                class="badge bg-danger rounded-circle position-absolute top-0 start-100 translate-middle">
+                {{ cartItemCount }}
+              </span>
+            }
           </a>
         </li>
 
         <li class="nav-item d-flex align-items-center">
-          <div class="text-white me-3" *ngIf="auth.getCurrentUser()">
-            <span class="">{{ auth.getCurrentUser()?.username }}</span>
-          </div>
+          @if (auth.getCurrentUser()) {
+            <div class="text-white me-3">
+              <span class="">{{ auth.getCurrentUser()?.username }}</span>
+            </div>
+          }
         </li>
 
         <!-- The Setting -->
@@ -54,7 +58,7 @@
               </div>
 
               <button class="mb-2 dropdown-item text-danger btn-sm" (click)="logout()">{{ 'HEADER.LOGOUT' | translate
-                }}</button>
+              }}</button>
 
             </div>
 

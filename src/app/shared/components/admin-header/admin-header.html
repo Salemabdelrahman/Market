@@ -20,10 +20,12 @@
         <li class="nav-item">
           <a routerLink="/admin/cart" routerLinkActive="active" class="nav-link position-relative">
             🛒
-            <span *ngIf="cartItemCount > 0"
-              class="badge bg-danger rounded-circle position-absolute top-0 start-100 translate-middle">
-              {{ cartItemCount }}
-            </span>
+            @if (cartItemCount > 0) {
+              <span
+                class="badge bg-danger rounded-circle position-absolute top-0 start-100 translate-middle">
+                {{ cartItemCount }}
+              </span>
+            }
           </a>
         </li>
 
@@ -53,7 +55,7 @@
               </div>
 
               <button class="mb-2 dropdown-item text-danger btn-sm" (click)="logout()">{{ 'HEADER.LOGOUT' | translate
-                }}</button>
+              }}</button>
 
             </div>
 

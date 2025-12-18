@@ -5,9 +5,11 @@
     </button>
   </li>
 
-  <li class="nav-item" *ngFor="let cat of categories" (click)="changeCategory(cat)">
-    <button class="btn btn-outline-success mx-2" [class.active]="selectedCategory === cat">
-      {{ cat }}
-    </button>
-  </li>
+  @for (cat of categories; track cat) {
+    <li class="nav-item" (click)="changeCategory(cat)">
+      <button class="btn btn-outline-success mx-2" [class.active]="selectedCategory === cat">
+        {{ cat }}
+      </button>
+    </li>
+  }
 </ul>

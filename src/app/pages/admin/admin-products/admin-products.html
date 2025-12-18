@@ -62,86 +62,80 @@
     <!-- Table Card -->
     <div class="table-card">
       <div class="table-responsive modern p-4">
-        <div *ngFor="let category of products | keyvalue" class="category-group">
-          <h5 class="category-title">{{ category.key | titlecase }}</h5>
-          <table class="table products-table">
-            <thead>
-              <tr>
-                <th>
-                  <input type="checkbox" class="form-check-input">
-                </th>
-                <th>{{ 'ADMIN_PRODUCTS.TABLE_HEADER_PRODUCT' | translate }}</th>
-                <th>{{ 'ADMIN_PRODUCTS.TABLE_HEADER_CATEGORY' | translate }}</th>
-                <th>{{ 'ADMIN_PRODUCTS.TABLE_HEADER_PRICE' | translate }}</th>
-                <th>{{ 'ADMIN_PRODUCTS.TABLE_HEADER_STOCK' | translate }}</th>
-                <th>{{ 'ADMIN_PRODUCTS.TABLE_HEADER_CREATED' | translate }}</th>
-                <th>{{ 'ADMIN_PRODUCTS.TABLE_HEADER_STATUS' | translate }}</th>
-                <th>{{ 'ADMIN_PRODUCTS.TABLE_HEADER_ACTIONS' | translate }}</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr *ngFor="let p of filteredProducts" class="product-row">
-                <td>
-                  <input type="checkbox" class="form-check-input">
-                </td>
-
-                <td>
-                  <div class="product-info">
-                    <div class="product-image">
-                      <img [src]="p.image" [alt]="p.title">
-                    </div>
-                    <div class="product-details">
-                      <h6 class="product-title">{{ p.title }}</h6>
-                      <p class="product-desc">{{ p.description | slice:0:50 }}...</p>
-                    </div>
-                  </div>
-                </td>
-
-                <td>
-                  <span class="badge-category">{{ p.category }}</span>
-                </td>
-
-                <td>
-                  <span class="price">${{ p.price }}</span>
-                </td>
-
-                <td>
-                  <span class="stock-badge d-inline-block stock-in">{{ 'ADMIN_PRODUCTS.IN_STOCK' | translate }}</span>
-                </td>
-
-                <td>
-                  <span class="date">{{ p.createdAt | date:'MMM d, y' }}</span>
-                </td>
-
-                <td>
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" checked>
-                  </div>
-                </td>
-
-                <td>
-                  <div class="action-buttons">
-                    <button class="btn-action btn-view" (click)="viewProductsByCategory(p.category)"
-                      [title]="'COMMON.VIEW' | translate">
-                      <fa-icon [icon]="['fas', 'eye']"></fa-icon>
-                    </button>
-
-                    <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#productModal"
-                      (click)="openEditModal(p)" [title]="'COMMON.EDIT' | translate">
-                      <fa-icon [icon]="['fas', 'edit']"></fa-icon>
-                    </button>
-
-                    <button class="btn-action btn-delete" (click)="deleteProduct(p.id)"
-                      [title]="'COMMON.DELETE' | translate">
-                      <fa-icon [icon]="['fas', 'trash']"></fa-icon>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        @for (category of products | keyvalue; track category) {
+          <div class="category-group">
+            <h5 class="category-title">{{ category.key | titlecase }}</h5>
+            <table class="table products-table">
+              <thead>
+                <tr>
+                  <th>
+                    <input type="checkbox" class="form-check-input">
+                  </th>
+                  <th>{{ 'ADMIN_PRODUCTS.TABLE_HEADER_PRODUCT' | translate }}</th>
+                  <th>{{ 'ADMIN_PRODUCTS.TABLE_HEADER_CATEGORY' | translate }}</th>
+                  <th>{{ 'ADMIN_PRODUCTS.TABLE_HEADER_PRICE' | translate }}</th>
+                  <th>{{ 'ADMIN_PRODUCTS.TABLE_HEADER_STOCK' | translate }}</th>
+                  <th>{{ 'ADMIN_PRODUCTS.TABLE_HEADER_CREATED' | translate }}</th>
+                  <th>{{ 'ADMIN_PRODUCTS.TABLE_HEADER_STATUS' | translate }}</th>
+                  <th>{{ 'ADMIN_PRODUCTS.TABLE_HEADER_ACTIONS' | translate }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (p of filteredProducts; track p) {
+                  <tr class="product-row">
+                    <td>
+                      <input type="checkbox" class="form-check-input">
+                    </td>
+                    <td>
+                      <div class="product-info">
+                        <div class="product-image">
+                          <img [src]="p.image" [alt]="p.title">
+                        </div>
+                        <div class="product-details">
+                          <h6 class="product-title">{{ p.title }}</h6>
+                          <p class="product-desc">{{ p.description | slice:0:50 }}...</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="badge-category">{{ p.category }}</span>
+                    </td>
+                    <td>
+                      <span class="price">${{ p.price }}</span>
+                    </td>
+                    <td>
+                      <span class="stock-badge d-inline-block stock-in">{{ 'ADMIN_PRODUCTS.IN_STOCK' | translate }}</span>
+                    </td>
+                    <td>
+                      <span class="date">{{ p.createdAt | date:'MMM d, y' }}</span>
+                    </td>
+                    <td>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" checked>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="action-buttons">
+                        <button class="btn-action btn-view" (click)="viewProductsByCategory(p.category)"
+                          [title]="'COMMON.VIEW' | translate">
+                          <fa-icon [icon]="['fas', 'eye']"></fa-icon>
+                        </button>
+                        <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#productModal"
+                          (click)="openEditModal(p)" [title]="'COMMON.EDIT' | translate">
+                          <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+                        </button>
+                        <button class="btn-action btn-delete" (click)="deleteProduct(p.id)"
+                          [title]="'COMMON.DELETE' | translate">
+                          <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        }
 
         <!-- Pagination (commented out in source HTML, so skipped for translation) -->
 
@@ -167,7 +161,7 @@
               </p>
             </div>
             <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal"
-              [attr.aria-label]="'COMMON.CLOSE' | translate"></button>
+            [attr.aria-label]="'COMMON.CLOSE' | translate"></button>
           </div>
 
           <div class="modal-body">
@@ -206,7 +200,7 @@
                   </label>
                   <textarea class="form-control modern-input" rows="3" [(ngModel)]="formData.description"
                     name="description"
-                    [placeholder]="'ADMIN_PRODUCTS.PLACEHOLDER_ENTER_DESCRIPTION' | translate"></textarea>
+                  [placeholder]="'ADMIN_PRODUCTS.PLACEHOLDER_ENTER_DESCRIPTION' | translate"></textarea>
                 </div>
 
                 <!-- Image URL -->
@@ -238,7 +232,9 @@
                     {{ 'PRODUCTS.CATEGORY' | translate }}
                   </label>
                   <select class="form-select modern-input" [(ngModel)]="formData.category" name="category">
-                    <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+                    @for (category of categories; track category) {
+                      <option [value]="category">{{ category }}</option>
+                    }
 
                   </select>
                 </div>

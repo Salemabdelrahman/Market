@@ -1,29 +1,31 @@
 <!-- Product Details -->
-<div *ngIf="!loading && product" class="container mt-4">
-  <div class="row">
-    <div class="col-md-5">
-      <img [src]="product.image" class="img-fluid rounded">
-    </div>
-    <div class="col-md-7">
-      <h2>{{ product.title }}</h2>
-      <p>{{ product.description }}</p>
-
-      <p>{{ 'PRODUCTS.CATEGORY' | translate }}: {{ product.category }}</p>
-
-      <p>{{ 'PRODUCTS.RATING' | translate }}: {{ product.rating.rate }} ({{ product.rating.count }} {{
+@if (!loading && product) {
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-5">
+        <img [src]="product.image" class="img-fluid rounded">
+      </div>
+      <div class="col-md-7">
+        <h2>{{ product.title }}</h2>
+        <p>{{ product.description }}</p>
+        <p>{{ 'PRODUCTS.CATEGORY' | translate }}: {{ product.category }}</p>
+        <p>{{ 'PRODUCTS.RATING' | translate }}: {{ product.rating.rate }} ({{ product.rating.count }} {{
         'PRODUCTS.REVIEWS' | translate }})</p>
-
-      <h4 class="text-success">{{ product.price | currency }}</h4>
-
-      <button class="btn btn-primary mt-3" (click)="addToCart()">
-        {{ 'PRODUCTS.ADD_TO_CART' | translate }}
-      </button>
+        <h4 class="text-success">{{ product.price | currency }}</h4>
+        <button class="btn btn-primary mt-3" (click)="addToCart()">
+          {{ 'PRODUCTS.ADD_TO_CART' | translate }}
+        </button>
+      </div>
     </div>
   </div>
-</div>
+}
 
-<app-spinner *ngIf="loading"></app-spinner>
-<div *ngIf="!loading && !product" class="text-center p-5">
-  <p class="lead">{{ 'PRODUCTS.NOT_FOUND' | translate }}</p>
-  <a routerLink="/products" class="btn btn-primary mt-3">{{ 'CART.BACK_TO_PRODUCTS' | translate }}</a>
-</div>
+@if (loading) {
+  <app-spinner></app-spinner>
+}
+@if (!loading && !product) {
+  <div class="text-center p-5">
+    <p class="lead">{{ 'PRODUCTS.NOT_FOUND' | translate }}</p>
+    <a routerLink="/products" class="btn btn-primary mt-3">{{ 'CART.BACK_TO_PRODUCTS' | translate }}</a>
+  </div>
+}

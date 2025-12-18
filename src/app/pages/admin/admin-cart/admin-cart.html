@@ -32,21 +32,21 @@
     </thead>
 
     <tbody>
-      <tr *ngFor="let month of grouped">
-        <td>{{ month.display }}</td>
-        <td>{{ month.quantity }}</td>
-
-        <td>
-          <button class="btn btn-info me-2" data-bs-toggle="modal" data-bs-target="#detailsModal"
-            (click)="openModal(month.items)">
-            {{ 'COMMON.VIEW' | translate }}
-          </button>
-
-          <button class="btn btn-danger" (click)="deleteMonth(month.monthKey)">
-            {{ 'COMMON.DELETE' | translate }}
-          </button>
-        </td>
-      </tr>
+      @for (month of grouped; track month) {
+        <tr>
+          <td>{{ month.display }}</td>
+          <td>{{ month.quantity }}</td>
+          <td>
+            <button class="btn btn-info me-2" data-bs-toggle="modal" data-bs-target="#detailsModal"
+              (click)="openModal(month.items)">
+              {{ 'COMMON.VIEW' | translate }}
+            </button>
+            <button class="btn btn-danger" (click)="deleteMonth(month.monthKey)">
+              {{ 'COMMON.DELETE' | translate }}
+            </button>
+          </td>
+        </tr>
+      }
     </tbody>
   </table>
 
@@ -59,7 +59,7 @@
         <div class="modal-header">
           <h5 class="modal-title">{{ 'ADMIN_CART.MODAL_TITLE' | translate }}</h5>
           <button class="btn-close ms-auto" data-bs-dismiss="modal"
-            [attr.aria-label]="'COMMON.CLOSE' | translate"></button>
+          [attr.aria-label]="'COMMON.CLOSE' | translate"></button>
         </div>
 
         <div class="modal-body">
@@ -76,13 +76,15 @@
             </thead>
 
             <tbody>
-              <tr *ngFor="let p of selectedMonthItems">
-                <td><img [src]="p.image" width="60" [alt]="'COMMON.PRODUCT_IMAGE_ALT' | translate"></td>
-                <td>{{ p.title }}</td>
-                <td>{{ p.price }}</td>
-                <td>{{ p.quantity }}</td>
-                <td>{{ p.price! * p.quantity! }}</td>
-              </tr>
+              @for (p of selectedMonthItems; track p) {
+                <tr>
+                  <td><img [src]="p.image" width="60" [alt]="'COMMON.PRODUCT_IMAGE_ALT' | translate"></td>
+                  <td>{{ p.title }}</td>
+                  <td>{{ p.price }}</td>
+                  <td>{{ p.quantity }}</td>
+                  <td>{{ p.price! * p.quantity! }}</td>
+                </tr>
+              }
             </tbody>
 
           </table>
